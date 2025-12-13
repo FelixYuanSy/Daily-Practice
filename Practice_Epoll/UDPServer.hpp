@@ -1,11 +1,13 @@
 #pragma once
 #include <cerrno>
 #include <cstdint>
+#include <cstring>
 #include <iostream>
 #include <netinet/in.h>
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include "InetAddr.hpp"
 
 const static uint16_t Default_Port = 8087;
 const static int Default_Fd = -1;
@@ -57,7 +59,14 @@ public:
       ssize_t recv_ret = recvfrom(_socket_fd, buffer, sizeof(buffer) - 1, 0,
                                   (struct sockaddr *)&peer, &lens);
       if (recv_ret > 0) {
+        //解析收到链接的ip和port
+        InetAddr addr(peer);
+        //刷新一下buffer
+        buffer[recv_ret]=0;
+        std::cout<<"["<<addr.PrintDebug()<<"]#" << buffer <<std::endl;
+        sendto(_socket_fd, buffer, strlen(buffer), 0, (struct sockaddr *)&peer, lens);
       }
     }
   }
+  ~UdpServer(){}
 };
