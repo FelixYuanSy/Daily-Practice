@@ -186,9 +186,8 @@ namespace LogModule
     // 创建全局使用对象
     Logger logger;
 
-#define LOG(level) logger(level, __FILE__, _LINE_)
+#define LOG(level) logger(level, __FILE__, __LINE__)
 #define Enable_Console_Log_Strategy() logger.EnableConsoleStrategy()
 #define Enable_File_Log_Strategy() logger.EnableFileStrategy()
 
 }
-
