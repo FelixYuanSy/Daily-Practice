@@ -34,7 +34,7 @@ public:
     bzero(&local, sizeof(local));
     local.sin_family = AF_INET;
     local.sin_port = htons(_port);
-    local.sin_addr.s_addr = INADDR_ANY; // used to accept any incoming address
+    local.sin_addr.s_addr = INADDR_ANY; // used to accept any incoming address，因为允许绑定具体ip所以让他自己分配
 
     int ret = bind(_socket_fd, (sockaddr *)&local, sizeof(local));
     if (ret != 0) {
