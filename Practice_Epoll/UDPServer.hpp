@@ -26,7 +26,7 @@ public:
     assert(_sock.Socket());
     
   }
-  bool Start(std::string &ip,const uint16_t &port, Handler handler)
+  bool Start(const std::string &ip,const uint16_t &port, Handler handler)
   {
     bool ret = _sock.Bind(ip, port);
     if(!ret)
